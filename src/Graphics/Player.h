@@ -13,13 +13,14 @@ class Player : public Drawable
     int m_x;
     int m_y;
 
-    Line line;
+    Line m_line;
 
     static constexpr int PLAYER_SIZE = 20;
     static constexpr int PLAYER_SIZE_HALF = PLAYER_SIZE / 2;
     static constexpr int PLAYER_SPEED = 10;
 
-    void handle_keyboard();    
+    void handle_keyboard();  
+    void handle_mouse();
 
   public:
     Player();

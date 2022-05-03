@@ -12,8 +12,7 @@ int main(int argc, char **argv)
     wnd.initialize();
 
     wnd.add_drawable(std::make_shared<Grid>());
-    wnd.add_drawable(std::make_shared<Player>());
-    wnd.add_drawable(std::make_shared<Line>());
+    wnd.add_drawable(std::make_shared<Player>());    
 
     wnd.event_loop();
 
