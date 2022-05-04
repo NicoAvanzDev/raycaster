@@ -82,12 +82,12 @@ void Window::add_drawable(const shared_ptr<Drawable> &drawable)
 
 void Window::draw()
 {
-    SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_SetRenderDrawColor(m_renderer, 142, 142, 142, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(m_renderer);
 
-    for (int i = 0; i < m_drawables.size(); i++)
+    for (auto &m_drawable : m_drawables)
     {
-        m_drawables[i]->draw(m_renderer);
+        m_drawable->draw(m_renderer);
     }
 
     SDL_RenderPresent(m_renderer);

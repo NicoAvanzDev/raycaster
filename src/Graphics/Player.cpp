@@ -19,7 +19,7 @@ Player::Player() : Drawable()
 void Player::draw(SDL_Renderer *renderer)
 {
     // Player draw
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
 
     const SDL_FRect rect{m_x, m_y, PLAYER_SIZE, PLAYER_SIZE};
     SDL_RenderFillRectF(renderer, &rect);
