@@ -1,9 +1,5 @@
-//
-// Created by tiger on 4/29/2022.
-//
-
-#ifndef RAYTRACER_WINDOW_H
-#define RAYTRACER_WINDOW_H
+#ifndef RAYCASTER_WINDOW_H
+#define RAYCASTER_WINDOW_H
 
 #include <SDL2/SDL.h>
 #include <functional>
@@ -34,9 +30,9 @@ class Window
     int initialize();
     void event_loop();
 
-    void add_drawable(shared_ptr<Drawable> drawable);
+    void add_drawable(const shared_ptr<Drawable> &drawable);
 };
 
 } // namespace engine
 
-#endif // RAYTRACER_WINDOW_H
+#endif // RAYCASTER_WINDOW_H

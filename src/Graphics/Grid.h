@@ -11,6 +11,7 @@ namespace graphics
 class Grid : public Drawable
 {
   public:
+    void setup() override;
     void draw(SDL_Renderer *renderer) override;
     void fixed_update() override;
 };

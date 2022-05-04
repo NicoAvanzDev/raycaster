@@ -7,61 +7,79 @@ Player::Player() : Drawable()
     m_x = 150;
     m_y = 150;
 
-    m_line = Line(m_x, m_y, 0, 0);
+    m_angle = 90;
+
+    m_dx = cos(m_angle) * TURN_SPEED;
+    m_dy = sin(m_angle) * TURN_SPEED;
+
+    m_line = Line(m_x + PLAYER_SIZE_HALF, m_y + PLAYER_SIZE_HALF, m_x + PLAYER_SIZE_HALF + m_dx * RAY_LENGTH,
+                  m_y + PLAYER_SIZE_HALF + m_dy * RAY_LENGTH);
 }
 
 void Player::draw(SDL_Renderer *renderer)
 {
     // Player draw
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
 
-    const SDL_Rect rect{m_x, m_y, PLAYER_SIZE, PLAYER_SIZE};
-    SDL_RenderFillRect(renderer, &rect);
+    const SDL_FRect rect{m_x, m_y, PLAYER_SIZE, PLAYER_SIZE};
+    SDL_RenderFillRectF(renderer, &rect);
 
+    // Ray draw
     m_line.draw(renderer);
 }
 
 void Player::fixed_update()
 {
     handle_keyboard();
-    handle_mouse();
 
+    // Move ray according to player position
     m_line.x1 = m_x + PLAYER_SIZE_HALF;
     m_line.y1 = m_y + PLAYER_SIZE_HALF;
+
+    m_line.x2 = m_line.x1 + m_dx * RAY_LENGTH;
+    m_line.y2 = m_line.y1 + m_dy * RAY_LENGTH;
 }
 
 void Player::handle_keyboard()
 {
-    const Uint8 *keystate = SDL_GetKeyboardState(NULL);
+    // Handle player movements
+    const Uint8 *key_state = SDL_GetKeyboardState(nullptr);
 
-    if (keystate[SDL_SCANCODE_W])
-        m_y -= PLAYER_SPEED;
+    if (key_state[SDL_SCANCODE_W])
+    {
+        m_x += m_dx;
+        m_y += m_dy;
+    }
 
-    if (keystate[SDL_SCANCODE_A])
-        m_x -= PLAYER_SPEED;
+    if (key_state[SDL_SCANCODE_A])
+    {
+        m_angle -= .1;
 
-    if (keystate[SDL_SCANCODE_S])
-        m_y += PLAYER_SPEED;
+        if (m_angle < 0)
+            m_angle += 2 * M_PI;
 
-    if (keystate[SDL_SCANCODE_D])
-        m_x += PLAYER_SPEED;
+        m_dx = cos(m_angle) * TURN_SPEED;
+        m_dy = sin(m_angle) * TURN_SPEED;
+    }
 
-    if (m_x < 0)
-        m_x = 0;
-    if (m_x > WINDOW_WIDTH - PLAYER_SIZE)
-        m_x = WINDOW_WIDTH - PLAYER_SIZE;
+    if (key_state[SDL_SCANCODE_S])
+    {
+        m_x -= m_dx;
+        m_y -= m_dy;
+    }
 
-    if (m_y < 0)
-        m_y = 0;
-    if (m_y > WINDOW_HEIGHT - PLAYER_SIZE)
-        m_y = WINDOW_HEIGHT - PLAYER_SIZE;
+    if (key_state[SDL_SCANCODE_D])
+    {
+        m_angle += .1;
+
+        if (m_angle > 2 * M_PI)
+            m_angle -= 2 * M_PI;
+
+        m_dx = cos(m_angle) * TURN_SPEED;
+        m_dy = sin(m_angle) * TURN_SPEED;
+    }
 }
 
-void Player::handle_mouse()
+void Player::setup()
 {
-    int x, y;
-    SDL_GetMouseState(&x, &y);
-
-    m_line.x2 = x;
-    m_line.y2 = y;
 }

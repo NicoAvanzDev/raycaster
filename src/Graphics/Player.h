@@ -5,29 +5,35 @@
 #include "Drawable.h"
 #include "Line.h"
 
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 namespace graphics
 {
 class Player : public Drawable
 {
   private:
-    int m_x;
-    int m_y;
+    float m_x;
+    float m_y;
+
+    float m_dx, m_dy, m_angle;
 
     Line m_line;
 
     static constexpr int PLAYER_SIZE = 20;
     static constexpr int PLAYER_SIZE_HALF = PLAYER_SIZE / 2;
-    static constexpr int PLAYER_SPEED = 10;
+    static constexpr int RAY_LENGTH = 20;
+    static constexpr int TURN_SPEED = 2;
 
-    void handle_keyboard();  
-    void handle_mouse();
+    void handle_keyboard();
 
   public:
     Player();
 
+    void setup() override;
     void draw(SDL_Renderer *renderer) override;
     void fixed_update() override;
 };
 } // namespace graphics
 
-#endif
+#endif // RAYCASTER_PLAYER_H

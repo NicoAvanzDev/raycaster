@@ -32,13 +32,18 @@ int Window::initialize()
 void Window::event_loop()
 {
     SDL_Event event;
-    bool is_windowopen = true;
+    bool is_window_open = true;
+
+    for (auto &drawable : m_drawables)
+    {
+        drawable->setup();
+    }
 
     Uint64 initial_ticks = SDL_GetTicks64();
     Uint64 ticks = SDL_GetTicks64();
     Uint64 delta_time = 0;
 
-    while (is_windowopen)
+    while (is_window_open)
     {
         initial_ticks = SDL_GetTicks64();
 
@@ -47,7 +52,7 @@ void Window::event_loop()
             switch (event.type)
             {
             case SDL_QUIT:
-                is_windowopen = false;
+                is_window_open = false;
                 break;
             }
         }
@@ -70,7 +75,7 @@ void Window::event_loop()
     }
 }
 
-void Window::add_drawable(shared_ptr<Drawable> drawable)
+void Window::add_drawable(const shared_ptr<Drawable> &drawable)
 {
     m_drawables.push_back(drawable);
 }

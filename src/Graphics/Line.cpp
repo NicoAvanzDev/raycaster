@@ -10,7 +10,7 @@ Line::Line()
     y2 = 0;
 }
 
-Line::Line(int x1, int y1, int x2, int y2)
+Line::Line(float x1, float y1, float x2, float y2)
 {
     this->x1 = x1;
     this->y1 = y1;
@@ -20,11 +20,15 @@ Line::Line(int x1, int y1, int x2, int y2)
 
 void Line::draw(SDL_Renderer *renderer)
 {
-    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 128);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 255, SDL_ALPHA_OPAQUE);
 
-    SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
+    SDL_RenderDrawLineF(renderer, x1, y1, x2, y2);
 }
 
 void Line::fixed_update()
+{
+}
+
+void Line::setup()
 {
 }
