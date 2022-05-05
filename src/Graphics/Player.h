@@ -2,6 +2,7 @@
 #define RAYCASTER_PLAYER_H
 
 #include "../Constants.h"
+#include "../Physics/Vector2f.h"
 #include "Drawable.h"
 #include "Line.h"
 
@@ -13,10 +14,10 @@ namespace graphics
 class Player : public Drawable
 {
   private:
-    float m_x;
-    float m_y;
+    physics::Vector2f m_pos;
 
-    float m_dx, m_dy, m_angle;
+    physics::Vector2f m_delta_pos;
+    float m_angle;
 
     Line m_line;
 

@@ -59,7 +59,7 @@ void Window::event_loop()
 
         delta_time += initial_ticks - ticks;
 
-        if (delta_time > 1000 / FRAMERATE)
+        if (delta_time > (1000 / FRAMERATE))
         {
             for (auto &drawable : m_drawables)
             {
