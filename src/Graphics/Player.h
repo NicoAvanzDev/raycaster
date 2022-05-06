@@ -3,15 +3,14 @@
 
 #include "../Constants.h"
 #include "../Physics/Vector2f.h"
-#include "Drawable.h"
+#include "IDrawable.h"
 #include "Line.h"
 
-#define _USE_MATH_DEFINES
 #include <cmath>
 
 namespace graphics
 {
-class Player : public Drawable
+class Player : public IDrawable
 {
   private:
     physics::Vector2f m_pos;
@@ -32,8 +31,10 @@ class Player : public Drawable
     Player();
 
     void setup() override;
-    void draw(SDL_Renderer *renderer) override;
+    void draw(SDL_Renderer* renderer) override;
     void fixed_update() override;
+
+    [[nodiscard]] physics::Vector2f getPos() const;
 };
 } // namespace graphics
 

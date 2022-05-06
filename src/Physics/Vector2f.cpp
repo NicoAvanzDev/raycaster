@@ -31,21 +31,33 @@ void Vector2f::set_y(float y)
     v[1] = y;
 }
 
-Vector2f operator+(const Vector2f &a, const Vector2f &b)
+Vector2f operator+(const Vector2f& a, const Vector2f& b)
 {
     return {a.x() + b.x(), a.y() + b.y()};
 }
-Vector2f operator-(const Vector2f &a, const Vector2f &b)
+Vector2f operator-(const Vector2f& a, const Vector2f& b)
 {
     return {a.x() - b.x(), a.y() - b.y()};
 }
-Vector2f &Vector2f::operator+=(const Vector2f &vec)
+Vector2f operator*(const Vector2f& a, const Vector2f& b)
+{
+    return {a.x() * b.x(), a.y() * b.y()};
+}
+Vector2f operator*(const Vector2f& a, float b)
+{
+    return {a.x() * b, a.y() * b};
+}
+Vector2f operator*(float b, const Vector2f& a)
+{
+    return a * b;
+}
+Vector2f& Vector2f::operator+=(const Vector2f& vec)
 {
     this->v[0] += vec.v[0];
     this->v[1] += vec.v[1];
     return *this;
 }
-Vector2f &Vector2f::operator-=(const Vector2f &vec)
+Vector2f& Vector2f::operator-=(const Vector2f& vec)
 {
     this->v[0] -= vec.v[0];
     this->v[1] -= vec.v[1];

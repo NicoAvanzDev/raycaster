@@ -1,11 +1,11 @@
 #ifndef RAYCASTER_LINE_H
 #define RAYCASTER_LINE_H
 
-#include "Drawable.h"
+#include "IDrawable.h"
 
 namespace graphics
 {
-class Line : public Drawable
+class Line : public IDrawable
 {
 
   public:
@@ -14,7 +14,7 @@ class Line : public Drawable
 
     float x1, y1, x2, y2;
 
-    void draw(SDL_Renderer *renderer) override;
+    void draw(SDL_Renderer* renderer) override;
     void setup() override;
     void fixed_update() override;
 };

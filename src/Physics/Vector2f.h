@@ -23,9 +23,12 @@ class Vector2f
     void set_x(float x);
     void set_y(float y);
 
-    Vector2f &operator+=(const Vector2f &vec);
-    Vector2f &operator-=(const Vector2f &vec);
+    Vector2f& operator+=(const Vector2f& vec);
+    Vector2f& operator-=(const Vector2f& vec);
 };
+
+Vector2f operator*(const Vector2f& a, float b);
+Vector2f operator*(float b, const Vector2f& a);
 
 } // namespace physics
 

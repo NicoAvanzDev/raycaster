@@ -2,7 +2,7 @@
 
 using graphics::Player;
 
-Player::Player() : Drawable()
+Player::Player() : IDrawable()
 {
     m_pos = physics::Vector2f(150, 150);
 
@@ -16,7 +16,7 @@ Player::Player() : Drawable()
                   m_pos.y() + PLAYER_SIZE_HALF + m_delta_pos.y() * RAY_LENGTH);
 }
 
-void Player::draw(SDL_Renderer *renderer)
+void Player::draw(SDL_Renderer* renderer)
 {
     // Player draw
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
@@ -43,7 +43,7 @@ void Player::fixed_update()
 void Player::handle_keyboard()
 {
     // Handle player movements
-    const Uint8 *key_state = SDL_GetKeyboardState(nullptr);
+    const Uint8* key_state = SDL_GetKeyboardState(nullptr);
 
     if (key_state[SDL_SCANCODE_W])
     {
@@ -55,7 +55,7 @@ void Player::handle_keyboard()
         m_angle -= .1;
 
         if (m_angle < 0)
-            m_angle += 2 * M_PI;
+            m_angle += PI2;
 
         m_delta_pos.set_x(cos(m_angle) * TURN_SPEED);
         m_delta_pos.set_y(sin(m_angle) * TURN_SPEED);
@@ -70,12 +70,17 @@ void Player::handle_keyboard()
     {
         m_angle += .1;
 
-        if (m_angle > 2 * M_PI)
-            m_angle -= 2 * M_PI;
+        if (m_angle > PI2)
+            m_angle -= PI2;
 
         m_delta_pos.set_x(cos(m_angle) * TURN_SPEED);
         m_delta_pos.set_y(sin(m_angle) * TURN_SPEED);
     }
+}
+
+physics::Vector2f graphics::Player::getPos() const
+{
+    return m_pos;
 }
 
 void Player::setup()

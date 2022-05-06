@@ -20,7 +20,7 @@ Line::Line(float x1, float y1, float x2, float y2)
 
 void Line::draw(SDL_Renderer *renderer)
 {
-    SDL_SetRenderDrawColor(renderer, 0, 0, 255, SDL_ALPHA_OPAQUE);
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
 
     SDL_RenderDrawLineF(renderer, x1, y1, x2, y2);
 }

@@ -1,18 +1,19 @@
-#include "Engine/Window.h"
+#include "Engine/Engine.h"
 #include "Graphics/Grid.h"
-#include "Graphics/Line.h"
 #include "Graphics/Player.h"
+#include "Graphics/Raycaster.h"
 
-using graphics::Grid, graphics::Player, graphics::Line;
+using graphics::Grid, graphics::Player, graphics::Raycaster;
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
-    engine::Window wnd;
+    engine::Engine wnd;
 
     wnd.initialize();
 
-    wnd.add_drawable(std::make_shared<Grid>());
-    wnd.add_drawable(std::make_shared<Player>());
+    engine::Engine::add_drawable(std::make_shared<Grid>());
+    engine::Engine::add_drawable(std::make_shared<Player>());
+    engine::Engine::add_drawable(std::make_shared<Raycaster>());
 
     wnd.event_loop();
 

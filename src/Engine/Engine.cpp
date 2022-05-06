@@ -1,14 +1,20 @@
-#include "Window.h"
+#include "Engine.h"
 
-using engine::Window;
+namespace engine
+{
 
-Window::Window()
+using engine::Engine;
+using std::shared_ptr, std::vector, graphics::IDrawable;
+
+Engine::Engine()
 {
     m_window = nullptr;
     m_renderer = nullptr;
 }
 
-int Window::initialize()
+vector<shared_ptr<IDrawable>> Engine::m_drawables;
+
+int Engine::initialize()
 {
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
@@ -29,12 +35,12 @@ int Window::initialize()
     return 0;
 }
 
-void Window::event_loop()
+void Engine::event_loop()
 {
     SDL_Event event;
     bool is_window_open = true;
 
-    for (auto &drawable : m_drawables)
+    for (auto& drawable : m_drawables)
     {
         drawable->setup();
     }
@@ -61,7 +67,7 @@ void Window::event_loop()
 
         if (delta_time > (1000 / FRAMERATE))
         {
-            for (auto &drawable : m_drawables)
+            for (auto& drawable : m_drawables)
             {
                 drawable->fixed_update();
             }
@@ -75,17 +81,17 @@ void Window::event_loop()
     }
 }
 
-void Window::add_drawable(const shared_ptr<Drawable> &drawable)
+void Engine::add_drawable(const shared_ptr<IDrawable>& drawable)
 {
     m_drawables.push_back(drawable);
 }
 
-void Window::draw()
+void Engine::draw()
 {
     SDL_SetRenderDrawColor(m_renderer, 142, 142, 142, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(m_renderer);
 
-    for (auto &m_drawable : m_drawables)
+    for (auto& m_drawable : m_drawables)
     {
         m_drawable->draw(m_renderer);
     }
@@ -93,7 +99,7 @@ void Window::draw()
     SDL_RenderPresent(m_renderer);
 }
 
-Window::~Window()
+Engine::~Engine()
 {
     if (m_renderer)
     {
@@ -105,3 +111,5 @@ Window::~Window()
     }
     SDL_Quit();
 }
+
+} // namespace engine
