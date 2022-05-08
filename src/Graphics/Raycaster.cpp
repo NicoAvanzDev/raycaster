@@ -16,7 +16,7 @@ void Raycaster::setup()
 
 void Raycaster::draw(SDL_Renderer* renderer)
 {
-    float ray_angle = m_player->get_angle() - DR * 30;
+    auto ray_angle = static_cast<float>(m_player->get_angle() - DR * 30);
 
     for (int i = 0; i < 60; i++)
     {
@@ -29,8 +29,8 @@ void Raycaster::draw(SDL_Renderer* renderer)
             sqrt(1 + (ray_dir.x() * ray_dir.x()) / (ray_dir.y() * ray_dir.y())),
         };
 
-        ray_unit_step_size.set_x(isinf(ray_unit_step_size.x()) ? 1e30 : ray_unit_step_size.x());
-        ray_unit_step_size.set_y(isinf(ray_unit_step_size.y()) ? 1e30 : ray_unit_step_size.y());
+        ray_unit_step_size.set_x(isinf(ray_unit_step_size.x()) ? 1e30f : ray_unit_step_size.x());
+        ray_unit_step_size.set_y(isinf(ray_unit_step_size.y()) ? 1e30f : ray_unit_step_size.y());
 
         Vector2f map_check = Vector2f(ray_start.x(), ray_start.y());
 
@@ -83,11 +83,15 @@ void Raycaster::draw(SDL_Renderer* renderer)
                 ray_length += Vector2f(0, ray_unit_step_size.y());
             }
 
-            Vector2f curr_tile =
-                Vector2f{floor(map_check.x() / GRID_CELL_HEIGHT), floor(map_check.y() / GRID_CELL_WIDTH)};
-            if (curr_tile.x() >= 0 && curr_tile.x() < ROWS && curr_tile.y() >= 0 && curr_tile.y() < COLS)
-                if (graphics::map[int(curr_tile.y())][int(curr_tile.x())] == 1)
+            Vector2f curr_tile = Vector2f{floor(map_check.x() / m_grid->GRID_CELL_HEIGHT),
+                                          floor(map_check.y() / m_grid->GRID_CELL_WIDTH)};
+
+            if ((curr_tile.x() >= 0 && curr_tile.x() < m_grid->ROWS) &&
+                (curr_tile.y() >= 0 && curr_tile.y() < m_grid->COLS))
+            {
+                if (m_grid->map[int(curr_tile.y())][int(curr_tile.x())] == 1)
                     tile_found = true;
+            }
         }
 
         if (tile_found)

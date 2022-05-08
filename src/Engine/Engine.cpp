@@ -22,7 +22,7 @@ int Engine::initialize()
         return -1;
     }
 
-    m_window = SDL_CreateWindow("Raytracer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH,
+    m_window = SDL_CreateWindow("Raytracer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH * 2,
                                 WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
     if (!m_window)
     {
