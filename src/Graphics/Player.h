@@ -34,7 +34,9 @@ class Player : public IDrawable
     void draw(SDL_Renderer* renderer) override;
     void fixed_update() override;
 
-    [[nodiscard]] physics::Vector2f getPos() const;
+    [[nodiscard]] physics::Vector2f get_pos() const;
+    [[nodiscard]] physics::Vector2f get_dir() const;
+    [[nodiscard]] float get_angle() const;
 };
 } // namespace graphics
 

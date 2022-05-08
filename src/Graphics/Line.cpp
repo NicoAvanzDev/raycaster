@@ -1,6 +1,7 @@
 #include "Line.h"
 
-using graphics::Line;
+namespace graphics
+{
 
 Line::Line()
 {
@@ -18,7 +19,7 @@ Line::Line(float x1, float y1, float x2, float y2)
     this->y2 = y2;
 }
 
-void Line::draw(SDL_Renderer *renderer)
+void Line::draw(SDL_Renderer* renderer)
 {
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
 
@@ -32,3 +33,5 @@ void Line::fixed_update()
 void Line::setup()
 {
 }
+
+} // namespace graphics

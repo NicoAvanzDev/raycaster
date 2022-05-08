@@ -1,6 +1,7 @@
 #include "Player.h"
 
-using graphics::Player;
+namespace graphics
+{
 
 Player::Player() : IDrawable()
 {
@@ -78,11 +79,23 @@ void Player::handle_keyboard()
     }
 }
 
-physics::Vector2f graphics::Player::getPos() const
+physics::Vector2f Player::get_pos() const
 {
-    return m_pos;
+    return m_pos + PLAYER_SIZE_HALF;
+}
+
+physics::Vector2f Player::get_dir() const
+{
+    return m_delta_pos;
+}
+
+float Player::get_angle() const
+{
+    return m_angle;
 }
 
 void Player::setup()
 {
 }
+
+} // namespace graphics

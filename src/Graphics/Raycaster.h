@@ -9,16 +9,21 @@
 
 #include "../Engine/Engine.h"
 #include "../Physics/Vector2f.h"
+#include "Grid.h"
 #include "IDrawable.h"
 #include "Player.h"
 
 namespace graphics
 {
 
-constexpr int RAYCOUNT = 200;
+constexpr int RAYCOUNT = 60;
 
 class Raycaster : public IDrawable
 {
+  private:
+    std::shared_ptr<Player> m_player;
+    std::shared_ptr<Grid> m_grid;
+
   public:
     void setup() override;
     void draw(SDL_Renderer* renderer) override;

@@ -1,26 +1,9 @@
 #include "Grid.h"
 
-using graphics::Grid;
+namespace graphics
+{
 
-inline constexpr int ROWS = 10;
-inline constexpr int COLS = 10;
-
-inline constexpr int GRID_CELL_WIDTH = WINDOW_WIDTH / COLS;
-inline constexpr int GRID_CELL_HEIGHT = WINDOW_HEIGHT / ROWS;
-
-const int map[ROWS][COLS] = {
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-    {1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-    {1, 0, 0, 1, 1, 1, 1, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 0, 0, 0, 1, 1, 1, 1, 1},
-    {1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
-    {1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
-    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
-
-void Grid::draw(SDL_Renderer *renderer)
+void Grid::draw(SDL_Renderer* renderer)
 {
     for (int y = 0; y < ROWS; ++y)
     {
@@ -47,3 +30,5 @@ void Grid::setup()
 void Grid::fixed_update()
 {
 }
+
+} // namespace graphics

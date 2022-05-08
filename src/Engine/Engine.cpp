@@ -30,7 +30,7 @@ int Engine::initialize()
         return -1;
     }
 
-    m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
+    m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     return 0;
 }
@@ -45,7 +45,7 @@ void Engine::event_loop()
         drawable->setup();
     }
 
-    Uint64 initial_ticks = SDL_GetTicks64();
+    Uint64 initial_ticks;
     Uint64 ticks = SDL_GetTicks64();
     Uint64 delta_time = 0;
 
@@ -65,7 +65,7 @@ void Engine::event_loop()
 
         delta_time += initial_ticks - ticks;
 
-        if (delta_time > (1000 / FRAMERATE))
+        if (delta_time > static_cast<Uint64>(1000 / FRAMERATE))
         {
             for (auto& drawable : m_drawables)
             {

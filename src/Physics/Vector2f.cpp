@@ -31,9 +31,23 @@ void Vector2f::set_y(float y)
     v[1] = y;
 }
 
+Vector2f Vector2f::normalize(const Vector2f& v)
+{
+    float mag = sqrt(v.x() * v.x() + v.y() * v.y());
+    return v / mag;
+}
+
 Vector2f operator+(const Vector2f& a, const Vector2f& b)
 {
     return {a.x() + b.x(), a.y() + b.y()};
+}
+Vector2f operator+(const Vector2f& a, const int b)
+{
+    return {a.x() + static_cast<float>(b), a.y() + static_cast<float>(b)};
+}
+Vector2f operator+(const Vector2f& a, const float b)
+{
+    return {a.x() + b, a.y() + b};
 }
 Vector2f operator-(const Vector2f& a, const Vector2f& b)
 {
@@ -46,6 +60,10 @@ Vector2f operator*(const Vector2f& a, const Vector2f& b)
 Vector2f operator*(const Vector2f& a, float b)
 {
     return {a.x() * b, a.y() * b};
+}
+Vector2f operator/(const Vector2f& a, float b)
+{
+    return {a.x() / b, a.y() / b};
 }
 Vector2f operator*(float b, const Vector2f& a)
 {
