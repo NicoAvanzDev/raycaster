@@ -67,6 +67,9 @@ void Raycaster::draw(SDL_Renderer* renderer)
         bool tile_found = false;
         float max_distance = 1000;
         float distance = 0;
+
+        float dis_v = 0, dis_h = 0;
+
         while (!tile_found && distance < max_distance)
         {
             // Walk
@@ -74,12 +77,14 @@ void Raycaster::draw(SDL_Renderer* renderer)
             {
                 map_check += Vector2f(step.x(), 0);
                 distance = ray_length.x();
+                dis_v = distance;
                 ray_length += Vector2f(ray_unit_step_size.x(), 0);
             }
             else
             {
                 map_check += Vector2f(0, step.y());
                 distance = ray_length.y();
+                dis_h = distance;
                 ray_length += Vector2f(0, ray_unit_step_size.y());
             }
 
@@ -100,9 +105,33 @@ void Raycaster::draw(SDL_Renderer* renderer)
             intersection = ray_start + ray_dir * distance;
             SDL_SetRenderDrawColor(renderer, 0, 255, 0, SDL_ALPHA_OPAQUE);
             SDL_RenderDrawLineF(renderer, ray_start.x(), ray_start.y(), intersection.x(), intersection.y());
+
+            // 3D
+            float ray_player_diff = m_player->get_angle() - ray_angle;
+
+            if (ray_player_diff < 0)
+                ray_player_diff += 2 * PI;
+            if (ray_player_diff > 2 * PI)
+                ray_player_diff -= 2 * PI;
+
+            distance *= cos(ray_player_diff);
+            float line_h = static_cast<float>(m_grid->GRID_CELL_HEIGHT * WINDOW_HEIGHT) / distance;
+            float line_offset = (static_cast<float>(WINDOW_HEIGHT) / 2) - (line_h / 2);
+            SDL_FRect wall{static_cast<float>(WINDOW_WIDTH + 50 + 12 * i), line_offset, 12, line_h};
+
+            if (dis_v < dis_h)
+                SDL_SetRenderDrawColor(renderer, 0, 255, 0, SDL_ALPHA_OPAQUE);
+            else
+                SDL_SetRenderDrawColor(renderer, 0, 235, 0, SDL_ALPHA_OPAQUE);
+
+            SDL_RenderFillRectF(renderer, &wall);
         }
 
         ray_angle += DR;
+        if (ray_angle < 0)
+            ray_angle += 2 * PI;
+        if (ray_angle > 2 * PI)
+            ray_angle -= 2 * PI;
     }
 }
 

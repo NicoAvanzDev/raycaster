@@ -37,6 +37,7 @@ Vector2f Vector2f::normalize(const Vector2f& v)
     return v / mag;
 }
 
+#pragma region OPERATORS
 Vector2f operator+(const Vector2f& a, const Vector2f& b)
 {
     return {a.x() + b.x(), a.y() + b.y()};
@@ -81,5 +82,6 @@ Vector2f& Vector2f::operator-=(const Vector2f& vec)
     this->v[1] -= vec.v[1];
     return *this;
 }
+#pragma endregion
 
 } // namespace physics
