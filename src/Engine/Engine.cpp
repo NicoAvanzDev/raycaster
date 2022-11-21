@@ -37,6 +37,7 @@ int Engine::initialize()
 
 void Engine::event_loop()
 {
+
     SDL_Event event;
     bool is_window_open = true;
 
@@ -65,11 +66,18 @@ void Engine::event_loop()
 
         delta_time += initial_ticks - ticks;
 
-        if (delta_time > static_cast<Uint64>(1000 / FRAMERATE))
+        if (delta_time > TICKS)
         {
+            std::vector<std::thread> threads;
+
             for (auto& drawable : m_drawables)
             {
-                drawable->fixed_update();
+                threads.push_back(std::thread(&IDrawable::fixed_update, drawable));
+            }
+
+            for (auto& thread : threads)
+            {
+                thread.join();
             }
 
             delta_time = 0;
@@ -88,6 +96,8 @@ void Engine::add_drawable(const shared_ptr<IDrawable>& drawable)
 
 void Engine::draw()
 {
+    std::vector<std::thread> threads;
+
     SDL_SetRenderDrawColor(m_renderer, 142, 142, 142, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(m_renderer);
 

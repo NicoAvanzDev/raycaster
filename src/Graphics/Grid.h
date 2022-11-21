@@ -17,11 +17,11 @@ class Grid : public IDrawable
     static constexpr int GRID_CELL_WIDTH = WINDOW_WIDTH / COLS;
     static constexpr int GRID_CELL_HEIGHT = WINDOW_HEIGHT / ROWS;
 
-    const int map[ROWS][COLS] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-                                 {1, 0, 0, 0, 0, 0, 1, 0, 0, 1}, {1, 0, 0, 1, 1, 1, 1, 0, 0, 1},
-                                 {1, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-                                 {1, 0, 0, 0, 0, 1, 1, 1, 1, 1}, {1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
-                                 {1, 0, 1, 0, 0, 0, 0, 0, 0, 1}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
+    static constexpr int map[ROWS][COLS] = {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, {1, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+                                            {1, 0, 0, 0, 0, 0, 1, 0, 0, 1}, {1, 0, 0, 1, 1, 1, 1, 0, 0, 1},
+                                            {1, 0, 0, 0, 0, 0, 0, 0, 0, 1}, {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+                                            {1, 0, 0, 0, 0, 1, 1, 1, 1, 1}, {1, 0, 1, 0, 0, 0, 0, 0, 0, 1},
+                                            {1, 0, 1, 0, 0, 0, 0, 0, 0, 1}, {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}};
 
     void setup() override;
     void draw(SDL_Renderer* renderer) override;

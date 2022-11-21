@@ -5,9 +5,9 @@
 #define PI2 (PI * 2)
 #define DR 0.0174533
 
-inline constexpr int WINDOW_WIDTH = 800;
-inline constexpr int WINDOW_HEIGHT = 800;
-
-inline constexpr float FRAMERATE = 60.0;
+constexpr int WINDOW_WIDTH = 800;
+constexpr int WINDOW_HEIGHT = 800;
+constexpr float FRAMERATE = 60.0;
+constexpr float TICKS = 1000.0 / FRAMERATE;
 
 #endif

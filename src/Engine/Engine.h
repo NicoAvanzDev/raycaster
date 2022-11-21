@@ -5,14 +5,18 @@
 #include <functional>
 #include <iostream>
 #include <string>
+#include <thread>
 
 #include "../Constants.h"
 #include "../Graphics/IDrawable.h"
 
+using std::shared_ptr, std::unique_ptr, std::vector, graphics::IDrawable;
+
 namespace engine
 {
 
-using std::shared_ptr, std::vector, graphics::IDrawable;
+template <typename T>
+concept Derived = std::is_base_of<IDrawable, T>::value;
 
 class Engine
 {
@@ -32,12 +36,12 @@ class Engine
     void event_loop();
 
     static void add_drawable(const shared_ptr<IDrawable>& drawable);
-    template <typename T> static shared_ptr<T> get_drawable();
+
+    template <Derived T> static const shared_ptr<T> get_drawable();
 };
 
-template <typename T> shared_ptr<T> Engine::get_drawable()
+template <Derived T> const shared_ptr<T> Engine::get_drawable()
 {
-    static_assert(std::is_base_of_v<IDrawable, T>, "Given type does not inherit from IDrawable.");
     for (auto& drawable : m_drawables)
     {
         auto& drawable_type = *drawable;
